@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>   
+<meta charset="utf-8">
+<title>line</title>
+<style>
+    body {
+    background-color: rgb(207, 196, 186);
+    font-family: "poppins";
+}
+    .container{
+        position: relative;
+    margin-top: 50px;
+    height: 100;
+    width: 100;
+    color:azure
+    
+    }
+    .circle {
+        margin: auto; 
+        border: 0;
+         line-height: 12px;
+         text-transform: uppercase;
+         width: 10px;
+        font-size: 0rem ;
+      }
+      button{
+        background: #cbb4b4;
+    padding: 16px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 18px;
+    outline: none;
+    text-transform: uppercase;
+    
+			    background-color:#cfcee6;
+			    
+			    border: 0px;
+			    cursor:pointer;
+			    
+    }
+    button:nth-child(1) {
+        top:50%;
+        left: 0%;
+        transform: rotate(0deg) translate(-70px) rotate(0deg); 
+      }
+      button:nth-child(2) {
+        top: 100%;
+        left: 50%;
+        transform: rotate(70deg) translate(150px) rotate(-69deg);
+      }
+      button:nth-child(3) {
+        top: 0%;
+        left: 50%;
+        transform: rotate(120deg) translate(150px) rotate(-120deg);
+      }
+      button:nth-child(4) {
+        top: 100%;
+        left: 50%;
+        transform: rotate(0deg) translate(-150px) rotate(0deg); 
+      }
+      button:nth-child(5) {
+        top: 50%;
+        left: 50%;
+        transform: rotate(60deg) translate(-100px) rotate(-60deg);
+      }
+
+      #myCanvas {
+        border: 1px solid #000;
+      }
+      
+      #drawButton {
+        margin-top: 10px;
+        
+      }
+</style>
+</head>
+<body>
+   
+    <div class="container">
+       
+
+    <div class="container text-center cl-1"></div>
+   
+    <div class="circle">
+        <input type="button" id="up" value="up"></input>
+        <input type="button" id="down" value="down"></input>
+        <input type="button" id="right" value="right"></input>
+        <input type="button" id="left" value="left"></input>
+        
+
+      </div>  
+
+      <canvas id="myCanvas" width="400" height="300"></canvas>
+<script>
+    let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+let x = 250;
+let y = 250;
+let distance2={up:0,down:0,right:0,left:0};
+
+function handleClick(buttonId) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    if (buttonId==='up') {
+        y -= 50;
+    } else if (buttonId==='down') {
+        y += 50;
+    } else if (buttonId ==='right') {
+        x += 50;
+    } else  { 
+        x -= 50;
+    } 
+    ctx.lineTo(x, y);
+    ctx.stroke();
+
+    ID[buttonId] += 50;
+   saveDistance(buttonId,ID[buttonId]);
+}
+
+function saveDistance(buttonId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "LP.php", true);
+    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    xhr.send("diroction=" + buttonId +"ID=" +buttonId);
+
+}
+
+document.getElementById('up').addEventListener('click', function() {
+    handleClick('up');
+});
+document.getElementById('down').addEventListener('click', function() {
+    handleClick('down');
+});
+document.getElementById('right').addEventListener('click', function() {
+    handleClick('right');
+});
+document.getElementById('left').addEventListener('click', function() {
+    handleClick('left');
+});
+
+</script>
+</body>
+</html>
+
